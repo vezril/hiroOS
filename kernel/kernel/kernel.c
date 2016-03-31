@@ -13,5 +13,6 @@ void kernel_early(void)
 void kernel_main(void)
 {
 	printf("Hello, kernel World!\n");
-	printf("Test, %i\n", (int) 5);
+	printf("Test, %c\n", 'c');
+	printf("Test3: %c\nTest4: %c",'a','b');
 }

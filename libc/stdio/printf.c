@@ -45,17 +45,20 @@ int printf(const char* restrict format, ...)
 			goto print_c;
 		}
 
-		if ( *format == 'c' )
+		if(*format == 'c')
 		{
 			format++;
 			char c = (char) va_arg(parameters, int /* char promotes to int */);
 			print(&c, sizeof(c));
 		}
-		else if ( *format == 's' )
+		else if(*format == 's')
 		{
 			format++;
 			const char* s = va_arg(parameters, const char*);
 			print(s, strlen(s));
+		}
+		else if(*format == 'i'){
+
 		}
 		else
 		{

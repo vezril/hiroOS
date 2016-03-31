@@ -68,3 +68,16 @@ void terminal_writestring(const char* data)
 {
 	terminal_write(data, strlen(data));
 }
+
+void terminal_scroll(void) {
+	for(size_t y = 1;y<VGA_HEIGHT;y++) {
+		for(size_t x = 0;x<VGA_WIDTH;x++) {
+			const size_t index = y * VGA_WIDTH + x;
+			const size_t index_prev = y * VGA_WIDTH + x;
+			terminal_buffer[index_prev] = terminal_buffer[index];
+		}
+	}
+	terminal_column = 0;
+	terminal_row = VGA_HEIGHT-1;
+
+}

@@ -7,8 +7,8 @@
 extern "C" {
 #endif
 
-__attribute__((__noreturn__))
-void abort(void);
+__attribute__((__noreturn__)) void abort(void);
+__attribute__((__noreturn__)) void exit(int);
 int atoi(const char *);
 char * itoa(int, char, int);
 

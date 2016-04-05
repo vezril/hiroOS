@@ -16,16 +16,16 @@ int printf(const char* restrict format, ...) {
 	size_t amount;
 	bool rejected_bad_specifier = false;
 
-	while(*format != '\0') {
 		if(*format != '%') {
 		print_c:
-			amount = 1;
-			while(format[amount] && format[amount] != '%')
-				amount++;
-			print(format, amount);
-			format += amount;
-			written += amount;
-			continue;
+		while(*format != '\0') {
+				amount = 1;
+				while(format[amount] && format[amount] != '%')
+					amount++;
+				print(format, amount);
+				format += amount;
+				written += amount;
+				continue;
 		}
 
 		const char* format_begun_at = format;
@@ -42,14 +42,24 @@ int printf(const char* restrict format, ...) {
 
 		if(*format == 'c') {
 			format++;
-			char c = (char) va_arg(parameters, int /* char promotes to int */);
+			char c = (char) va_arg(parameters, int);
 			print(&c, sizeof(c));
 		} else if(*format == 's')	{
 			format++;
-			const char* s = va_arg(parameters, const char*);
+			const char * s = va_arg(parameters, const char *);
 			print(s, strlen(s));
 		} else if(*format == 'i'){
-
+			format++;
+			const char * s = itoa(va_arg(parameters, int), ptr, 10);
+			print(s, strlen(s));
+		} else if(*format == 'f'){
+			goto incomprehensible_conversion;
+		} else if(*format == 'l'){
+			goto incomprehensible_conversion;
+		} else if(*format == 'x') {
+			format++;
+			const char * s = itoa(va_arg(parameters, int), ptr, 16);
+			print(s, strlen(s));
 		} else {
 			goto incomprehensible_conversion;
 		}
